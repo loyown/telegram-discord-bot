@@ -1,0 +1,5 @@
+aiohttp
+telethon
+cloudinary
+nest_asyncio
+requests
