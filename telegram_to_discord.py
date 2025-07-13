@@ -1,4 +1,9 @@
-# === telegram_to_discord.py ===
+print("[DEBUG] Script partito")
+import sys
+sys.stdout.flush()# === telegram_to_discord.py ===
+
+
+
 import os
 import asyncio
 import aiohttp
