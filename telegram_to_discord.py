@@ -38,6 +38,7 @@ async def send_to_discord(text):
         payload = {"content": text}
         async with session.post(discord_webhook_url, json=payload) as resp:
             print(f"[Discord] Status: {resp.status}")
+            sys.stdout.flush()
 
 async def upload_to_cloudinary(buffer, filename, is_video=False):
     buffer.seek(0)
@@ -51,6 +52,7 @@ async def upload_to_cloudinary(buffer, filename, is_video=False):
         return result['secure_url']
     except Exception as e:
         print(f"[Cloudinary] Upload error: {e}")
+        sys.stdout.flush()
         return None
 
 def read_last_id():
@@ -65,9 +67,11 @@ def save_last_id(last_id):
 
 async def process_messages():
     print("[Telegram] Avvio client...")
+    sys.stdout.flush()
     await client.start(phone=phone_number)
     last_id = read_last_id()
     print(f"[Telegram] Ultimo ID processato: {last_id}")
+    sys.stdout.flush()
 
     async for message in client.iter_messages(target_group, min_id=last_id):
         parts = []
@@ -93,8 +97,10 @@ async def process_messages():
                         parts.append(f"🖼️ {url}")
                 else:
                     print(f"[Telegram] Tipo file non gestito: {mime}")
+                    sys.stdout.flush()
             except Exception as e:
                 print(f"[Telegram] Errore download/upload: {e}")
+                sys.stdout.flush()
 
         if parts:
             msg = separator + "\n".join(parts) + separator
@@ -102,6 +108,7 @@ async def process_messages():
             save_last_id(message.id)
 
     print("[Telegram] Completato!")
+    sys.stdout.flush()
 
 if __name__ == '__main__':
     asyncio.run(process_messages())
