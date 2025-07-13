@@ -2,7 +2,7 @@ name: Telegram to Discord Auto-Run
 
 on:
   schedule:
-    - cron: '0 7 * * *'  # ogni giorno alle 9:00 (ora Italia, UTC+2)
+    - cron: '*/5 * * * *'  # ogni giorno alle 9:00 (ora Italia, UTC+2)
   workflow_dispatch:
 
 jobs:
